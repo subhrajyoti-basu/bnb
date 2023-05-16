@@ -16,9 +16,9 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
 import useLoginModal from "@/hooks/useLoginModal";
 
-const RegisterModal = () => {
-  const registerModal = useRegisterModal();
+const LoginModal = () => {
   const loginModal = useLoginModal();
+  const registerModal = useRegisterModal();
 
   const {
     register,
@@ -26,7 +26,6 @@ const RegisterModal = () => {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      fullname: "",
       email: "",
       password: "",
     },
@@ -36,9 +35,9 @@ const RegisterModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
     axios
-      .post("/api/register", data)
+      .post("/api/login", data)
       .then(() => {
-        registerModal.onClose();
+        loginModal.onClose();
       })
       .catch((error) => {
         console.log(error);
@@ -46,38 +45,23 @@ const RegisterModal = () => {
       .finally(() => {});
   };
 
-  // send to login
-  const loginHandler = () => {
-    registerModal.onClose();
-    loginModal.onOpen();
+  // send to Register
+  const RegisterHandler = () => {
+    loginModal.onClose();
+    registerModal.onOpen();
   };
 
   return (
-    <Dialog open={registerModal.isOpen} onOpenChange={registerModal.onClose}>
+    <Dialog open={loginModal.isOpen} onOpenChange={loginModal.onClose}>
       <DialogContent className="sm:max-w-[350px]">
         <form action="" onSubmit={handleSubmit(onSubmit)}>
           <DialogHeader>
-            <DialogTitle>Register</DialogTitle>
+            <DialogTitle>Login</DialogTitle>
             <DialogDescription className="text-sm">
-              You are few steps away from finding your next vacation stay.
+              Login and book your next vacation stay.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-2">
-            <div>
-              <Label>Full Name</Label>
-              <Input
-                {...register("fullname", { required: true })}
-                type="text"
-                placeholder="Enter Full Name"
-                name="fullname"
-              />
-
-              {errors.fullname && (
-                <p className="text-sm text-rose-400 text-muted-foreground">
-                  Fullname is required
-                </p>
-              )}
-            </div>
             <div>
               <Label>Email</Label>
               <Input
@@ -127,7 +111,7 @@ const RegisterModal = () => {
           <DialogFooter>
             <div className="max-w-[230px] mt-2 text-sm text-center mx-auto">
               <DialogDescription>
-                If you already have an account please
+                If you don't have an account please
                 <span
                   className="
                 font-medium 
@@ -135,7 +119,7 @@ const RegisterModal = () => {
                 cursor-pointer
                 ml-2
                 "
-                  onClick={loginHandler}
+                  onClick={RegisterHandler}
                 >
                   Login
                 </span>
@@ -148,4 +132,4 @@ const RegisterModal = () => {
   );
 };
 
-export default RegisterModal;
+export default LoginModal;

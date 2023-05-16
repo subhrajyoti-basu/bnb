@@ -11,6 +11,7 @@ import {
   DropdownMenuGroup,
 } from "../ui/dropdown-menu";
 import useRegisterModal from "@/hooks/useRegisterModal";
+import useLoginModal from "@/hooks/useLoginModal";
 
 const UserMenu = () => {
   return (
@@ -73,9 +74,10 @@ const UserMenu = () => {
 // Dropdown Menus
 const DropDowns = () => {
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
   return (
     <DropdownMenuGroup>
-      <DropdownMenuItem>Login</DropdownMenuItem>
+      <DropdownMenuItem onClick={loginModal.onOpen}>Login</DropdownMenuItem>
       <DropdownMenuItem onClick={registerModal.onOpen}>
         Register
       </DropdownMenuItem>
