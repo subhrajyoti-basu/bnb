@@ -1,13 +1,12 @@
 import React from "react";
 import Container from "../Container";
-import H2 from "../ui/h2";
 import H4 from "../ui/h4";
 import SearchM from "./searchM";
 import UserMenu from "./UserMenu";
 
 const Navbar = () => {
   return (
-    <div className="fixed w-full bg-white z-10 ">
+    <div className="fixed top-0 w-full bg-white z-10 ">
       <div className="py-4 border-b">
         <Container>
           <div
